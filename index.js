@@ -15,13 +15,13 @@ module.exports = async (req, res) => {
             product_data: {
               name: item.name,
             },
-            unit_amount: item.price * 100,
+            unit_amount: item.price * 100, // Amount in cents
           },
-          quantity: 1,
+          quantity: 1, // If you want to support different quantities, you can adjust this.
         })),
         mode: 'payment',
-        success_url: ${req.headers.origin}/success,
-        cancel_url: ${req.headers.origin}/cancel,
+        success_url: `${req.headers.origin}/success`, // Correct string interpolation
+        cancel_url: `${req.headers.origin}/cancel`, // Correct string interpolation
       });
 
       res.status(200).json({ id: session.id });
@@ -30,6 +30,6 @@ module.exports = async (req, res) => {
     }
   } else {
     res.setHeader('Allow', ['POST']);
-    res.status(405).end(Method ${req.method} Not Allowed);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
